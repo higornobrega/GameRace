@@ -5,8 +5,9 @@ function love.load()--Cria e atribui as variaveis (setup)
 end
 
 function love.update()--Se repere
-    
-    if love.keyboard.isDown("left") then
+
+    --função keyboard.isDown responde enquanto o botão estiver precionado
+    --[[if love.keyboard.isDown("left") then
         x = x - 1
     end
     if love.keyboard.isDown("right") then
@@ -17,8 +18,24 @@ function love.update()--Se repere
     end
     if love.keyboard.isDown("down") then
         y = y + 1
-    end
-    
+    end]]
+
+    function love.keypressed(key)
+        if key == "left" then
+            x = x - 1
+        end
+
+        if key == "right" then
+            x = x + 1
+        end
+        
+        if key == "up" then
+            y = y - 1
+        end
+        if key == "down" then
+            y = y + 1
+        end
+    end    
 end
 
 function love.draw()-- Desenha
