@@ -130,13 +130,28 @@ function love.draw()-- Desenha
     end
     --informa a velocidade, tempo e espaço
     love.graphics.setFont(normal_font)
-    love.graphics.print( string.format("%.2f Km/h",velocidade),650,250)
+    love.graphics.print( string.format("%.2f mph",velocidade),650,250)
     love.graphics.print( string.format("%.2f s", tempo),650,280)
     love.graphics.print(string.format( "%.2f km",percorrido/1000 ), 650, 310)
     if poca then
         love.graphics.draw( poca_img, poca_x, poca_y )
     end
-  
+    -- transforma m/s em km/h
+    local kmh = 3.6 * velocidade
+    -- define o ângulo do ponteiro fazendo uma regra
+    -- de três entre km/h e radianos
+    local ang_kmh = (3 * kmh + 60) * math.pi/360
+    -- calcula o ponto x,y dado o ângulo e um raio de 50
+    local dx_kmh = 50 * math.sin(ang_kmh)
+    local dy_kmh = 50 * math.cos(ang_kmh)
+    -- desenha uma linha do centro do veloc. ao ponto x,y
+    love.graphics.line( 674,124, 674 - dx_kmh, 124 + dy_kmh)
+    local ang_segundos = (math.pi * tempo)/30
+    local dx_segundos = 50 * math.sin(ang_segundos)
+    local dy_segundos = 50 * math.cos(ang_segundos)
+    love.graphics.line( 124,124, 124 + dx_segundos,
+    124 - dy_segundos)
+
     --desenha carro
     love.graphics.draw(carro, x,y)
     if fim_jogo then
